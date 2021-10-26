@@ -1,24 +1,19 @@
 package com.example.stoper
 
-import android.graphics.Color
-import android.util.Log
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.stoper.databinding.TimeItemLayoutBinding
 
-class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class MainAdapter : ListAdapter<Tag, MainAdapter.ViewHolder>(MainDiffCallback()) {
 
-    var data = listOf<Tag>()
-        set(value){
-            field = value
-            notifyDataSetChanged()
-        }
-
-    var fontColor: Int? = null
+    @ColorInt
+    var textColor: Int? = null
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -29,44 +24,35 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
-
-        holder.bind(item, fontColor)
+        holder.bind(getItem(position), textColor)
     }
 
-    override fun getItemCount() = data.size
+    class ViewHolder private constructor(private val binding: TimeItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    class ViewHolder private constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val timeNumber: TextView = itemView.findViewById(R.id.time_number)
-        private val elapsedTime: TextView = itemView.findViewById(R.id.elapsed_time)
-        private val time: TextView = itemView.findViewById(R.id.time)
-
-        fun bind(item: Tag, fontColor: Int? = null){
-            timeNumber.text = "Pomiar ${item.id}"
-            elapsedTime.text = "Upłynęło ${item.timeBetween.convertLongToTime()}.%03d".format(item.timeBetween%1000)
-            time.text = "${item.timeTaken.convertLongToTime()}.%03d".format(item.timeTaken%1000)
-            fontColor?.let {
-                // todo alpha
-                timeNumber.setTextColor(it)
-                elapsedTime.setTextColor(it)
-                time.setTextColor(it)
-            }
-        }
-
-        private fun Long.convertLongToTime(): String {
-            val date = Date(this)
-            val format = SimpleDateFormat("mm:ss", Locale.getDefault())
-            return format.format(date)
+        fun bind(item: Tag, textColor: Int? = null) {
+            binding.tag = item
+            binding.textColor = textColor
+            binding.executePendingBindings()
         }
 
         companion object {
-            fun from(parent: ViewGroup): ViewHolder{
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.time_item_layout, parent, false)
+                val binding = TimeItemLayoutBinding.inflate(layoutInflater, parent, false)
 
-                return ViewHolder(view)
+                return ViewHolder(binding)
             }
         }
     }
 }
 
+class MainDiffCallback : DiffUtil.ItemCallback<Tag>() {
+    override fun areItemsTheSame(oldItem: Tag, newItem: Tag): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Tag, newItem: Tag): Boolean {
+        return oldItem == newItem
+    }
+}

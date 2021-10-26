@@ -1,52 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="4dp"
-    android:layout_marginVertical="2dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="textColor"
+            type="Integer" />
+
+        <variable
+            name="tag"
+            type="com.example.stoper.Tag" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginVertical="2dp">
 
-        <TextView
-            android:id="@+id/time_number"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            app:layout_constraintBottom_toTopOf="@+id/elapsed_time"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Pomiar 1" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp">
 
-        <TextView
-            android:id="@+id/elapsed_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/time_number"
-            tools:text="Upłynęło 00:00:76" />
+            <TextView
+                android:id="@+id/time_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:layout_constraintBottom_toTopOf="@+id/elapsed_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:measurementIdFormatted="@{tag}"
+                app:textColor="@{textColor}"
+                tools:text="Pomiar 1" />
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            app:layout_constraintBottom_toBottomOf="@+id/elapsed_time"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/time_number"
-            tools:text="00:01:76" />
+            <TextView
+                android:id="@+id/elapsed_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_number"
+                app:elapsedTimeFormatted="@{tag}"
+                app:textColor="@{textColor}"
+                tools:text="Upłynęło 00:00:76" />
 
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                app:layout_constraintBottom_toBottomOf="@+id/elapsed_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/time_number"
+                app:measuredTimeFormatted="@{tag}"
+                app:textColor="@{textColor}"
+                tools:text="00:01:76" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+    </FrameLayout>
+</layout>

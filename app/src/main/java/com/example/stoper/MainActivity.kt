@@ -2,7 +2,6 @@ package com.example.stoper
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Parcelable
@@ -27,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tagButton: Button
     private lateinit var layout: ConstraintLayout
     private lateinit var adapter: MainAdapter
+    private lateinit var recyclerView: RecyclerView
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -37,8 +37,8 @@ class MainActivity : AppCompatActivity() {
                     supportActionBar?.setBackgroundDrawable(ColorDrawable(it.actionBarColor))
                     window.statusBarColor = it.actionBarColor
                     layout.background = ColorDrawable(it.backgroundColor)
-                    adapter.fontColor = it.fontColor
-                    time.setTextColor(it.fontColor)
+                    adapter.textColor = it.textColor
+                    time.setTextColor(it.textColor)
                 }
             }
         }
@@ -52,16 +52,20 @@ class MainActivity : AppCompatActivity() {
         time = findViewById(R.id.chronometer)
         millisecondsTextView = findViewById(R.id.milliseconds)
 
+        adapter = MainAdapter()
+        recyclerView = findViewById(R.id.tag_list)
+        recyclerView.adapter = adapter
+
         tagButton = findViewById<Button>(R.id.tag).apply {
             setOnClickListener {
                 val currentTime = SystemClock.elapsedRealtime() - time.base
-                viewModel.addTag(
-                    Tag(
-                        viewModel.tags.value!!.size + 1L,
-                        currentTime,
-                        viewModel.tags.value?.lastOrNull()?.let { currentTime - it.timeTaken } ?: 0
-                    )
-                )
+                viewModel.tags.add(Tag(
+                    viewModel.tags.size + 1L,
+                    currentTime,
+                    viewModel.tags.lastOrNull()?.let { currentTime - it.measuredTime } ?: 0
+                ))
+                adapter.submitList(viewModel.tags.toList())
+                recyclerView.smoothScrollToPosition(viewModel.tags.size)
             }
         }
         findViewById<Button>(R.id.start).apply {
@@ -80,17 +84,10 @@ class MainActivity : AppCompatActivity() {
                 time.stop()
                 viewModel.isTimerRunning = false
                 viewModel.lastPause = null
-                viewModel.clearTags()
+                viewModel.tags.clear()
+                adapter.submitList(listOf())
             }
         }
-
-        adapter = MainAdapter()
-        findViewById<RecyclerView>(R.id.tag_list).adapter = adapter
-        viewModel.tags.observe(this, { it ->
-            it?.let {
-                adapter.data = it
-            }
-        })
     }
 
     private fun startTime() {
@@ -134,11 +131,11 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-data class Tag(val id: Long, val timeTaken: Long, val timeBetween: Long)
+data class Tag(val id: Long, val measuredTime: Long, val elapsedTime: Long)
 
 @Parcelize
 data class Colors(
-    @ColorInt val fontColor: Int = Color.RED,
-    @ColorInt val backgroundColor: Int = Color.BLUE,
-    @ColorInt val actionBarColor: Int = Color.RED
+    @ColorInt val textColor: Int,
+    @ColorInt val backgroundColor: Int,
+    @ColorInt val actionBarColor: Int
 ) : Parcelable
