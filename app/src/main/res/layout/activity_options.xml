@@ -4,258 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OptionsActivity">
+    tools:context=".settings.OptionsActivity">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/BasicMargin"
         android:text="Ustawienia"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/BasicMargin"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:id="@+id/scrollable"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingTop="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/textColor"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="8dp"
+        tools:background="#DD000000"
+        app:layout_constraintBottom_toTopOf="@+id/textButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/buttons">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical">
-            <LinearLayout
-                android:id="@+id/actionBarColorPicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/BasicMargin"
-                android:paddingEnd="@dimen/BasicMargin">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Wybierz kolor paska"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="R"
-                        android:gravity="center"
-                        android:layout_marginEnd="@dimen/BasicMargin"
-                        android:layout_marginStart="@dimen/BasicMargin"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/actionBarColorPickerRed"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:valueFrom="0"
-                        android:valueTo="255"
-                        android:stepSize="1"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="G"
-                        android:gravity="center"
-                        android:layout_marginEnd="@dimen/BasicMargin"
-                        android:layout_marginStart="@dimen/BasicMargin"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/actionBarColorPickerGreen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:valueFrom="0"
-                        android:valueTo="255"
-                        android:stepSize="1"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="B"
-                        android:gravity="center"
-                        android:layout_marginEnd="@dimen/BasicMargin"
-                        android:layout_marginStart="@dimen/BasicMargin"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/actionBarColorPickerBlue"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:valueFrom="0"
-                        android:valueTo="255"
-                        android:stepSize="1"/>
-                </LinearLayout>
-            </LinearLayout>
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-            <LinearLayout
-                android:id="@+id/backgroundColorPicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="8dp"
-                android:paddingStart="@dimen/BasicMargin"
-                android:paddingEnd="@dimen/BasicMargin">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Wybierz kolor tła"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="R"
-                        android:gravity="center"
-                        android:layout_marginEnd="@dimen/BasicMargin"
-                        android:layout_marginStart="@dimen/BasicMargin"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/backgroundColorPickerRed"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:valueFrom="0"
-                        android:valueTo="255"
-                        android:stepSize="1"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="G"
-                        android:gravity="center"
-                        android:layout_marginEnd="@dimen/BasicMargin"
-                        android:layout_marginStart="@dimen/BasicMargin"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/backgroundColorPickerGreen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:valueFrom="0"
-                        android:valueTo="255"
-                        android:stepSize="1"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="B"
-                        android:gravity="center"
-                        android:layout_marginEnd="@dimen/BasicMargin"
-                        android:layout_marginStart="@dimen/BasicMargin"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/backgroundColorPickerBlue"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:valueFrom="0"
-                        android:valueTo="255"
-                        android:stepSize="1"/>
-                </LinearLayout>
-            </LinearLayout>
+    <Button
+        android:id="@+id/textButton"
+        style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
 
-            <LinearLayout
-                android:id="@+id/fontColorPicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="8dp"
-                android:paddingStart="@dimen/BasicMargin"
-                android:paddingEnd="@dimen/BasicMargin"
-                android:layout_marginBottom="@dimen/BasicMargin">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Wybierz kolor czcionki"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="R"
-                        android:gravity="center"
-                        android:layout_marginEnd="@dimen/BasicMargin"
-                        android:layout_marginStart="@dimen/BasicMargin"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/fontColorPickerRed"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:valueFrom="0"
-                        android:valueTo="255"
-                        android:stepSize="1"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="G"
-                        android:gravity="center"
-                        android:layout_marginEnd="@dimen/BasicMargin"
-                        android:layout_marginStart="@dimen/BasicMargin"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/fontColorPickerGreen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:valueFrom="0"
-                        android:valueTo="255"
-                        android:stepSize="1"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="B"
-                        android:gravity="center"
-                        android:layout_marginEnd="@dimen/BasicMargin"
-                        android:layout_marginStart="@dimen/BasicMargin"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/fontColorPickerBlue"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:valueFrom="0"
-                        android:valueTo="255"
-                        android:stepSize="1"/>
-                </LinearLayout>
-            </LinearLayout>
+        android:text="kolor tekstu"
+        app:layout_constraintBottom_toTopOf="@+id/appBarColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textColor" />
 
-        </LinearLayout>
-    </ScrollView>
+    <ImageView
+        android:id="@+id/appBarColor"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="8dp"
+        tools:background="@color/design_default_color_primary"
+        app:layout_constraintBottom_toTopOf="@+id/appBarButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textButton" />
+
+    <Button
+        android:id="@+id/appBarButton"
+        style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="kolor paska"
+        app:layout_constraintBottom_toTopOf="@+id/backgroundColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarColor" />
+
+    <ImageView
+        android:id="@+id/backgroundColor"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="8dp"
+        tools:background="@color/design_default_color_background"
+        app:layout_constraintBottom_toTopOf="@+id/backgroundButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarButton" />
+
+    <Button
+        android:id="@+id/backgroundButton"
+        style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="kolor tła"
+        app:layout_constraintBottom_toTopOf="@+id/buttons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundColor" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/buttons"
@@ -271,13 +107,13 @@
             style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Anuluj" />
+            android:text="@string/cancelButton" />
 
         <Button
             android:id="@+id/accept"
             style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zatwierdź" />
+            android:text="@string/confirmButton" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

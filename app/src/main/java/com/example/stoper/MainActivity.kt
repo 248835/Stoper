@@ -4,41 +4,46 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Parcelable
-import android.os.SystemClock
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.Chronometer
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
-import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.stoper.settings.Colors
+import com.example.stoper.settings.OptionsActivity
 import com.example.stoper.stopper.Stopper
-import kotlinx.android.parcel.Parcelize
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var time: Chronometer
     private lateinit var layout: ConstraintLayout
     private lateinit var adapter: MainAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var stopper: Stopper
     private lateinit var tagButton: Button
     private lateinit var restartButton: Button
+    private var supportActionBarColor: Int? = null
+    private var backgroundColor: Int? = null
 
     private val openPostActivity =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 result.data?.getParcelableExtra<Colors>(COLORS_PARCEL)?.let {
-                    supportActionBar?.setBackgroundDrawable(ColorDrawable(it.actionBarColor))
-                    window.statusBarColor = it.actionBarColor
-                    layout.background = ColorDrawable(it.backgroundColor)
-                    adapter.textColor = it.textColor
-                    time.setTextColor(it.textColor)
+                    it.actionBarColor?.let {
+                        supportActionBar?.setBackgroundDrawable(ColorDrawable(it))
+                        supportActionBarColor = it
+                    }
+                    it.actionBarColor?.let {
+                        window.statusBarColor = it
+                    }
+                    it.backgroundColor?.let {
+                        layout.background = ColorDrawable(it)
+                        backgroundColor = it
+                    }
+                    it.textColor?.let {
+                        adapter.textColor = it
+                        stopper.setTextColor(it)
+                    }
                 }
             }
         }
@@ -46,6 +51,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        supportActionBarColor = baseContext.getColor(R.color.design_default_color_primary)
+        backgroundColor = baseContext.getColor(R.color.design_default_color_background)
 
         layout = findViewById(R.id.layout)
         stopper = findViewById(R.id.stopper)
@@ -91,8 +99,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.options) {
+            val intent = Intent(this, OptionsActivity::class.java)
+            intent.putExtra(
+                COLORS_PARCEL,
+                Colors(stopper.currentTextColor, backgroundColor, supportActionBarColor)
+            )
             openPostActivity.launch(
-                Intent(this, OptionsActivity::class.java)
+                intent
             )
             return true
         }
@@ -103,10 +116,3 @@ class MainActivity : AppCompatActivity() {
         const val COLORS_PARCEL = "COLORS_PARCEL"
     }
 }
-
-@Parcelize
-data class Colors(
-    @ColorInt val textColor: Int,
-    @ColorInt val backgroundColor: Int,
-    @ColorInt val actionBarColor: Int
-) : Parcelable
