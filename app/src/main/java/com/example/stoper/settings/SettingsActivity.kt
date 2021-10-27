@@ -24,44 +24,44 @@ class OptionsActivity : AppCompatActivity() {
         intent.extras?.getParcelable<Colors>(COLORS_PARCEL)?.let {
             Log.e("STEFAN","$it")
             it.textColor?.let {
-                findViewById<ImageView>(R.id.textColor).setBackgroundColor(it)
+                findViewById<ImageView>(R.id.text_color).setBackgroundColor(it)
             }
             it.actionBarColor?.let {
-                findViewById<ImageView>(R.id.appBarColor).setBackgroundColor(it)
+                findViewById<ImageView>(R.id.appbar_color).setBackgroundColor(it)
             }
             it.backgroundColor?.let {
-                findViewById<ImageView>(R.id.backgroundColor).setBackgroundColor(it)
+                findViewById<ImageView>(R.id.background_color).setBackgroundColor(it)
             }
         }
 
-        findViewById<Button>(R.id.textButton).setOnClickListener {
+        findViewById<Button>(R.id.text_button).setOnClickListener {
             val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(this)
             colorPickerDialog.show()
             colorPickerDialog.setOnColorPickedListener { color, _ ->
-                findViewById<ImageView>(R.id.textColor).setBackgroundColor(color)
+                findViewById<ImageView>(R.id.text_color).setBackgroundColor(color)
                 textColor=color
             }
         }
 
-        findViewById<Button>(R.id.appBarButton).setOnClickListener {
+        findViewById<Button>(R.id.appbar_button).setOnClickListener {
             val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(this)
             colorPickerDialog.show()
             colorPickerDialog.setOnColorPickedListener { color, _ ->
-                findViewById<ImageView>(R.id.appBarColor).setBackgroundColor(color)
+                findViewById<ImageView>(R.id.appbar_color).setBackgroundColor(color)
                 actionBarColor=color
             }
         }
 
-        findViewById<Button>(R.id.backgroundButton).setOnClickListener {
+        findViewById<Button>(R.id.background_button).setOnClickListener {
             val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(this)
             colorPickerDialog.show()
             colorPickerDialog.setOnColorPickedListener { color, _ ->
-                findViewById<ImageView>(R.id.backgroundColor).setBackgroundColor(color)
+                findViewById<ImageView>(R.id.background_color).setBackgroundColor(color)
                 backgroundColor=color
             }
         }
 
-        findViewById<Button>(R.id.accept).setOnClickListener {
+        findViewById<Button>(R.id.accept_button).setOnClickListener {
             val data = Intent()
             data.putExtra(
                 COLORS_PARCEL,
@@ -72,6 +72,6 @@ class OptionsActivity : AppCompatActivity() {
             finish()
         }
 
-        findViewById<Button>(R.id.cancel).setOnClickListener { finish() }
+        findViewById<Button>(R.id.cancel_button).setOnClickListener { finish() }
     }
 }

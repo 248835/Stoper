@@ -1,9 +1,8 @@
-package com.example.stoper
+package com.example.stoper.tag
 
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
-import com.example.stoper.stopper.Tag
 
 @BindingAdapter("measurementIdFormatted")
 fun TextView.setMeasurementIdFormatted(item: Tag?) {

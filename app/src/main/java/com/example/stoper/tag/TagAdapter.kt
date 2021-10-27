@@ -1,4 +1,4 @@
-package com.example.stoper
+package com.example.stoper.tag
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,8 +7,7 @@ import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.stoper.databinding.TimeItemLayoutBinding
-import com.example.stoper.stopper.Tag
+import com.example.stoper.databinding.TagItemLayoutBinding
 
 class MainAdapter : ListAdapter<Tag, MainAdapter.ViewHolder>(MainDiffCallback()) {
 
@@ -28,7 +27,7 @@ class MainAdapter : ListAdapter<Tag, MainAdapter.ViewHolder>(MainDiffCallback())
         holder.bind(getItem(position), textColor)
     }
 
-    class ViewHolder private constructor(private val binding: TimeItemLayoutBinding) :
+    class ViewHolder private constructor(private val binding: TagItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Tag, textColor: Int? = null) {
@@ -40,7 +39,7 @@ class MainAdapter : ListAdapter<Tag, MainAdapter.ViewHolder>(MainDiffCallback())
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = TimeItemLayoutBinding.inflate(layoutInflater, parent, false)
+                val binding = TagItemLayoutBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }

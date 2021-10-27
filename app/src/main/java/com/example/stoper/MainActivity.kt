@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.stoper.settings.Colors
 import com.example.stoper.settings.OptionsActivity
 import com.example.stoper.stopper.Stopper
+import com.example.stoper.tag.MainAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var layout: ConstraintLayout
@@ -32,8 +33,6 @@ class MainActivity : AppCompatActivity() {
                     it.actionBarColor?.let {
                         supportActionBar?.setBackgroundDrawable(ColorDrawable(it))
                         supportActionBarColor = it
-                    }
-                    it.actionBarColor?.let {
                         window.statusBarColor = it
                     }
                     it.backgroundColor?.let {
@@ -70,14 +69,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        restartButton = findViewById<Button>(R.id.restart).apply {
+        restartButton = findViewById<Button>(R.id.restart_button).apply {
             setOnClickListener {
                 adapter.submitList(listOf())
                 stopper.restart()
             }
         }
 
-        findViewById<Button>(R.id.start).apply {
+        findViewById<Button>(R.id.start_button).apply {
             setOnClickListener {
                 if (stopper.isRunning()) {
                     stopper.stop()

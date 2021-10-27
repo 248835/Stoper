@@ -17,12 +17,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/textColor"
+        android:id="@+id/text_color"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="8dp"
         tools:background="#DD000000"
-        app:layout_constraintBottom_toTopOf="@+id/textButton"
+        app:layout_constraintBottom_toTopOf="@+id/text_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,68 +30,68 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
-        android:id="@+id/textButton"
+        android:id="@+id/text_button"
         style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
 
-        android:text="kolor tekstu"
-        app:layout_constraintBottom_toTopOf="@+id/appBarColor"
+        android:text="@string/textColor"
+        app:layout_constraintBottom_toTopOf="@+id/appbar_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textColor" />
+        app:layout_constraintTop_toBottomOf="@+id/text_color" />
 
     <ImageView
-        android:id="@+id/appBarColor"
+        android:id="@+id/appbar_color"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="8dp"
         tools:background="@color/design_default_color_primary"
-        app:layout_constraintBottom_toTopOf="@+id/appBarButton"
+        app:layout_constraintBottom_toTopOf="@+id/appbar_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textButton" />
+        app:layout_constraintTop_toBottomOf="@+id/text_button" />
 
     <Button
-        android:id="@+id/appBarButton"
+        android:id="@+id/appbar_button"
         style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="kolor paska"
-        app:layout_constraintBottom_toTopOf="@+id/backgroundColor"
+        android:text="@string/appBarColor"
+        app:layout_constraintBottom_toTopOf="@+id/background_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarColor" />
+        app:layout_constraintTop_toBottomOf="@+id/appbar_color" />
 
     <ImageView
-        android:id="@+id/backgroundColor"
+        android:id="@+id/background_color"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginTop="8dp"
         tools:background="@color/design_default_color_background"
-        app:layout_constraintBottom_toTopOf="@+id/backgroundButton"
+        app:layout_constraintBottom_toTopOf="@+id/background_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarButton" />
+        app:layout_constraintTop_toBottomOf="@+id/appbar_button" />
 
     <Button
-        android:id="@+id/backgroundButton"
+        android:id="@+id/background_button"
         style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="kolor tła"
+        android:text="@string/backgroundColor"
         app:layout_constraintBottom_toTopOf="@+id/buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backgroundColor" />
+        app:layout_constraintTop_toBottomOf="@+id/background_color" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/buttons"
@@ -103,14 +103,14 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/cancel"
+            android:id="@+id/cancel_button"
             style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancelButton" />
 
         <Button
-            android:id="@+id/accept"
+            android:id="@+id/accept_button"
             style="@style/Widget.MaterialComponents.TimePicker.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -11,7 +11,7 @@
 
         <variable
             name="tag"
-            type="com.example.stoper.stopper.Tag" />
+            type="com.example.stoper.tag.Tag" />
     </data>
 
     <FrameLayout

@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Stoper</string>
-    <string name="measurment">Pomiar %d</string>
+    <string name="measurement">Pomiar %d</string>
     <string name="elapsed">Upłynęło %s</string>
     <string name="measuredTime">%s</string>
     <string name="timeZero">00:00:00.000</string>
     <string name="cancelButton">Anuluj</string>
     <string name="confirmButton">Zatwierdź</string>
+    <string name="textColor">kolor tekstu</string>
+    <string name="appBarColor">kolor paska</string>
+    <string name="backgroundColor">kolor tła</string>
 </resources>
