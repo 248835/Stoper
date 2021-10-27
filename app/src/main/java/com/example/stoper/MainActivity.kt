@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Parcelable
 import android.os.SystemClock
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -17,18 +18,17 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.stoper.stopper.Stopper
 import kotlinx.android.parcel.Parcelize
 
 class MainActivity : AppCompatActivity() {
     private lateinit var time: Chronometer
-    private lateinit var millisecondsTextView: TextView
-    private lateinit var restartButton: Button
-    private lateinit var tagButton: Button
     private lateinit var layout: ConstraintLayout
     private lateinit var adapter: MainAdapter
     private lateinit var recyclerView: RecyclerView
-
-    private val viewModel: MainViewModel by viewModels()
+    private lateinit var stopper: Stopper
+    private lateinit var tagButton: Button
+    private lateinit var restartButton: Button
 
     private val openPostActivity =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -48,9 +48,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         layout = findViewById(R.id.layout)
-
-        time = findViewById(R.id.chronometer)
-        millisecondsTextView = findViewById(R.id.milliseconds)
+        stopper = findViewById(R.id.stopper)
 
         adapter = MainAdapter()
         recyclerView = findViewById(R.id.tag_list)
@@ -58,57 +56,32 @@ class MainActivity : AppCompatActivity() {
 
         tagButton = findViewById<Button>(R.id.tag).apply {
             setOnClickListener {
-                val currentTime = SystemClock.elapsedRealtime() - time.base
-                viewModel.tags.add(Tag(
-                    viewModel.tags.size + 1L,
-                    currentTime,
-                    viewModel.tags.lastOrNull()?.let { currentTime - it.measuredTime } ?: 0
-                ))
-                adapter.submitList(viewModel.tags.toList())
-                recyclerView.smoothScrollToPosition(viewModel.tags.size)
-            }
-        }
-        findViewById<Button>(R.id.start).apply {
-            setOnClickListener {
-                if (!viewModel.isTimerRunning) {
-                    startTime()
-                } else {
-                    stopTime()
-                }
+                stopper.addTag()
+                adapter.submitList(stopper.tags.toList())
+                recyclerView.smoothScrollToPosition(stopper.tags.size)
             }
         }
 
         restartButton = findViewById<Button>(R.id.restart).apply {
             setOnClickListener {
-                time.base = SystemClock.elapsedRealtime()
-                time.stop()
-                viewModel.isTimerRunning = false
-                viewModel.lastPause = null
-                viewModel.tags.clear()
                 adapter.submitList(listOf())
+                stopper.restart()
             }
         }
-    }
 
-    private fun startTime() {
-        time.base = viewModel.lastPause?.let {
-            time.base + SystemClock.elapsedRealtime() - it
-        } ?: SystemClock.elapsedRealtime()
-        time.start()
-        time.setOnChronometerTickListener {
+        findViewById<Button>(R.id.start).apply {
+            setOnClickListener {
+                if (stopper.isRunning()) {
+                    stopper.stop()
+                    tagButton.isEnabled = false
+                    restartButton.isEnabled = true
+                } else {
+                    stopper.start()
+                    tagButton.isEnabled = true
+                    restartButton.isEnabled = false
+                }
+            }
         }
-        viewModel.isTimerRunning = true
-        tagButton.isEnabled = true
-        restartButton.isEnabled = false
-    }
-
-    private fun stopTime() {
-        viewModel.lastPause = SystemClock.elapsedRealtime()
-        time.stop()
-        time.onChronometerTickListener = null
-        viewModel.isTimerRunning = false
-        tagButton.isEnabled = false
-        restartButton.isEnabled = true
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -130,8 +103,6 @@ class MainActivity : AppCompatActivity() {
         const val COLORS_PARCEL = "COLORS_PARCEL"
     }
 }
-
-data class Tag(val id: Long, val measuredTime: Long, val elapsedTime: Long)
 
 @Parcelize
 data class Colors(

@@ -17,17 +17,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <Chronometer
-            android:id="@+id/chronometer"
+        <com.example.stoper.stopper.Stopper
+            android:id="@+id/stopper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1" />
-
-        <TextView
-            android:id="@+id/milliseconds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline1" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
+            tools:text="00:00:00.000"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
