@@ -3,7 +3,6 @@ package com.example.stoper.settings
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +21,6 @@ class OptionsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_options)
 
         intent.extras?.getParcelable<Colors>(COLORS_PARCEL)?.let {
-            Log.e("STEFAN","$it")
             it.textColor?.let {
                 findViewById<ImageView>(R.id.text_color).setBackgroundColor(it)
             }
