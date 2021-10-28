@@ -16,47 +16,56 @@ class OptionsActivity : AppCompatActivity() {
     private var backgroundColor: Int? = null
     private var textColor: Int? = null
 
+    private lateinit var appbarColorImageView: ImageView
+    private lateinit var textColorImageView: ImageView
+    private lateinit var backgroundColorImageView: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_options)
 
+        appbarColorImageView = findViewById(R.id.appbar_color)
+        textColorImageView = findViewById(R.id.text_color)
+        backgroundColorImageView = findViewById(R.id.background_color)
+
         intent.extras?.getParcelable<Colors>(COLORS_PARCEL)?.let {
             it.textColor?.let {
-                findViewById<ImageView>(R.id.text_color).setBackgroundColor(it)
+                textColorImageView.setBackgroundColor(it)
             }
             it.actionBarColor?.let {
-                findViewById<ImageView>(R.id.appbar_color).setBackgroundColor(it)
+                appbarColorImageView.setBackgroundColor(it)
             }
             it.backgroundColor?.let {
-                findViewById<ImageView>(R.id.background_color).setBackgroundColor(it)
+                backgroundColorImageView.setBackgroundColor(it)
             }
         }
 
+        setClickListeners()
+    }
+
+    private fun setClickListeners() {
         findViewById<Button>(R.id.text_button).setOnClickListener {
-            val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(this)
-            colorPickerDialog.show()
-            colorPickerDialog.setOnColorPickedListener { color, _ ->
-                findViewById<ImageView>(R.id.text_color).setBackgroundColor(color)
-                textColor=color
-            }
+            textColorPicker()
+        }
+
+        textColorImageView.setOnClickListener {
+            textColorPicker()
         }
 
         findViewById<Button>(R.id.appbar_button).setOnClickListener {
-            val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(this)
-            colorPickerDialog.show()
-            colorPickerDialog.setOnColorPickedListener { color, _ ->
-                findViewById<ImageView>(R.id.appbar_color).setBackgroundColor(color)
-                actionBarColor=color
-            }
+            appbarColorPicker()
+        }
+
+        appbarColorImageView.setOnClickListener {
+            appbarColorPicker()
         }
 
         findViewById<Button>(R.id.background_button).setOnClickListener {
-            val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(this)
-            colorPickerDialog.show()
-            colorPickerDialog.setOnColorPickedListener { color, _ ->
-                findViewById<ImageView>(R.id.background_color).setBackgroundColor(color)
-                backgroundColor=color
-            }
+            backgroundColorPicker()
+        }
+
+        backgroundColorImageView.setOnClickListener {
+            backgroundColorPicker()
         }
 
         findViewById<Button>(R.id.accept_button).setOnClickListener {
@@ -66,10 +75,37 @@ class OptionsActivity : AppCompatActivity() {
                 Colors(textColor, backgroundColor, actionBarColor)
             )
 
-            setResult(Activity.RESULT_OK, data)
+            setResult(RESULT_OK, data)
             finish()
         }
 
         findViewById<Button>(R.id.cancel_button).setOnClickListener { finish() }
+    }
+
+    private fun backgroundColorPicker() {
+        val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(this)
+        colorPickerDialog.show()
+        colorPickerDialog.setOnColorPickedListener { color, _ ->
+            findViewById<ImageView>(R.id.background_color).setBackgroundColor(color)
+            backgroundColor = color
+        }
+    }
+
+    private fun appbarColorPicker() {
+        val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(this)
+        colorPickerDialog.show()
+        colorPickerDialog.setOnColorPickedListener { color, _ ->
+            findViewById<ImageView>(R.id.appbar_color).setBackgroundColor(color)
+            actionBarColor = color
+        }
+    }
+
+    private fun textColorPicker() {
+        val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(this)
+        colorPickerDialog.show()
+        colorPickerDialog.setOnColorPickedListener { color, _ ->
+            findViewById<ImageView>(R.id.text_color).setBackgroundColor(color)
+            textColor = color
+        }
     }
 }
