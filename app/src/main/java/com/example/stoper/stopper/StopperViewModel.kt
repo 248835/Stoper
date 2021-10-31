@@ -1,11 +1,14 @@
 package com.example.stoper.stopper
 
 import android.os.SystemClock
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.stoper.tag.Tag
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 
 class StopperViewModel : ViewModel() {
     private var _isRunning = false
@@ -13,8 +16,8 @@ class StopperViewModel : ViewModel() {
         get() = _isRunning
     private var lastPause = 0L
     private var startTime = 0L
-    private val _tags: MutableList<Tag> = mutableListOf()
-    val tags: List<Tag>
+    private val _tags: MutableLiveData<List<Tag>> = MutableLiveData(listOf())
+    val tags: LiveData<List<Tag>>
         get() = _tags
 
     fun start(setText: (String) -> Unit) {
@@ -35,17 +38,18 @@ class StopperViewModel : ViewModel() {
 
     fun restart() {
         lastPause = 0
-        _tags.clear()
+        _tags.value = listOf()
     }
 
-    fun addTag(){
+    fun addTag() {
         val currentTime = lastPause + SystemClock.elapsedRealtime() - startTime
-        _tags.add(
+        _tags.value = arrayOf(
+            *_tags.value!!.toTypedArray(),
             Tag(
-                _tags.size + 1L,
+                _tags.value!!.size + 1L,
                 currentTime,
-                _tags.lastOrNull()?.let { currentTime - it.measuredTime } ?: 0
+                _tags.value!!.lastOrNull()?.let { currentTime - it.measuredTime } ?: 0
             )
-        )
+        ).toList()
     }
 }

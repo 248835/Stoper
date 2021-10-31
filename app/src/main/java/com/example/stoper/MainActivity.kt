@@ -64,10 +64,13 @@ class MainActivity : AppCompatActivity() {
         tagButton = findViewById<Button>(R.id.tag).apply {
             setOnClickListener {
                 stopper.addTag()
-                adapter.submitList(stopper.tags.toList())
-                recyclerView.smoothScrollToPosition(stopper.tags.size)
             }
         }
+
+        stopper.tags.observe(this, {
+            adapter.submitList(it)
+            recyclerView.smoothScrollToPosition(it?.size ?: 0)
+        })
 
         restartButton = findViewById<Button>(R.id.restart_button).apply {
             setOnClickListener {

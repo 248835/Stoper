@@ -15,8 +15,8 @@
         <entry key="app/src/main/res/drawable/icon_selector.xml" value="0.37135416666666665" />
         <entry key="app/src/main/res/drawable/rounded_corners.xml" value="0.37135416666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_options.xml" value="0.35520833333333335" />
-        <entry key="app/src/main/res/layout/tag_item_layout.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/activity_options.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/tag_item_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/time_item_layout.xml" value="0.33" />
         <entry key="app/src/main/res/menu/options.xml" value="0.35520833333333335" />
       </map>
@@ -27,12 +27,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.35520833333333335" />
-      </ProjectState>
-    </option>
   </component>
 </project>

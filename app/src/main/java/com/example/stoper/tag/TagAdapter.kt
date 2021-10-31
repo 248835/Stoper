@@ -45,14 +45,14 @@ class MainAdapter : ListAdapter<Tag, MainAdapter.ViewHolder>(MainDiffCallback())
             }
         }
     }
-}
 
-class MainDiffCallback : DiffUtil.ItemCallback<Tag>() {
-    override fun areItemsTheSame(oldItem: Tag, newItem: Tag): Boolean {
-        return oldItem.id == newItem.id
-    }
+    private class MainDiffCallback : DiffUtil.ItemCallback<Tag>() {
+        override fun areItemsTheSame(oldItem: Tag, newItem: Tag): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    override fun areContentsTheSame(oldItem: Tag, newItem: Tag): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: Tag, newItem: Tag): Boolean {
+            return oldItem == newItem
+        }
     }
 }
